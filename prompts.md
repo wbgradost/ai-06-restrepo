@@ -712,3 +712,537 @@ The hand derivation isolates the two terms in the wage equation, derives the exa
 sign condition, records the $\widetilde K$ result, and contrasts it with
 $d\ln(W/R)/dI<0$. It is stored in `hand/derivation-guide.md` for later manual
 copying.
+
+
+## User — Stage 3: Lean formalization and presentation
+
+Continúa desde el estado actual del Repository 6.
+
+Repositorio semanal:
+
+`C:\Users\WILLIAM\Documents\GitHub\ai-06-restrepo`
+
+Rama:
+
+`analysis`
+
+El análisis económico ya está cerrado y no debe rehacerse.
+
+Ya existen y deben reutilizarse:
+
+* `README.md`
+* `prompts.md`
+* `paper/README.md`
+* `paper/stage-1-model-map.md`
+* `paper/stage-2-economic-results.md`
+* `hand/derivation-guide.md`
+* las fuentes AER y NBER locales ya fijadas
+
+No vuelvas a investigar el paper, buscar fuentes ni reconstruir resultados económicos salvo que una necesidad concreta de Lean exija consultar el pasaje exacto del NBER.
+
+# PRIMERO: REVISA LA DERIVACIÓN REAL DEL BRANCH
+
+Antes de comenzar Lean, inspecciona directamente el archivo REAL:
+
+`hand/derivation-guide.md`
+
+de la rama actual `analysis`.
+
+No te bases en el diff mostrado en la conversación ni en una representación truncada de terminal. Abre el archivo y revisa su contenido real línea por línea únicamente en lo necesario para comprobar que la derivación está bien escrita.
+
+Hay una duda concreta que debe resolverse antes de continuar: en la salida anterior aparecieron expresiones que visualmente parecían haber perdido comandos de LaTeX, por ejemplo:
+
+* `d\ln W=left[`
+* `P_Igtrless`
+* `\frac{d\ln W}{dI}gtrless0`
+
+Esto puede ser solo un problema de visualización del diff, pero debes confirmarlo en el archivo real.
+
+Verifica especialmente:
+
+* `\left` y `\right`;
+* `\gtrless`;
+* `\Longleftrightarrow`;
+* `\Rightarrow`;
+* braces `{}`;
+* subscripts y superscripts;
+* `\frac`;
+* derivadas;
+* inequalities;
+* `\widetilde K`;
+* `I^*`;
+* `\gamma`;
+* cualquier ecuación que posteriormente vaya a aparecer en la presentación.
+
+Si hay errores mecánicos de LaTeX, corrígelos.
+
+Después comprueba que la secuencia algebraica del archivo sea internamente consistente:
+
+1. ecuación inicial tomada de Proposition 3;
+2. imponer `dN=0`;
+3. escribir el productivity effect como un término proporcional a `dI`;
+4. aislar displacement;
+5. obtener la comparación de signos;
+6. conectar correctamente con el threshold `K \gtrless \widetilde K`;
+7. contrastar el wage con la caída de `W/R` / labor share.
+
+No rehagas el análisis económico del paper.
+
+No busques una derivación alternativa si la actual es correcta.
+
+Solo corrige errores reales.
+
+Si detectas una inconsistencia económica sustantiva y no meramente tipográfica, comprueba únicamente el pasaje AER ya localizado de Proposition 3 antes de corregirla.
+
+Una vez revisado, usa **esa versión corregida y validada** de `hand/derivation-guide.md` para construir posteriormente la slide de derivación.
+
+---
+
+# LEAN
+
+Ahora realiza la corrida propia requerida para Acemoglu & Restrepo.
+
+Usa:
+
+* `AppliedModelingLib`
+* fuente NBER Working Paper 22252, revised June 2017
+* folder exacto:
+
+`papers/AR18RaceManMachine/`
+
+La corrida debe usar el modelo requerido por el curso:
+
+* `gpt-5.6-sol`
+* reasoning `xhigh`
+
+No copies una formalización existente de otra persona.
+
+La formalización debe surgir de esta corrida propia.
+
+## PROTEGER EL TRABAJO PREVIO
+
+El clon local de AppliedModelingLib contiene cambios previos asociados a Repository 5.
+
+No los borres, sobrescribas ni mezcles accidentalmente con este paper.
+
+Aísla el trabajo de `AR18RaceManMachine` mediante la alternativa más segura y simple disponible, preferentemente un worktree separado si el estado actual del clon hace eso conveniente.
+
+No hagas limpieza destructiva.
+
+No hagas reset de cambios ajenos.
+
+---
+
+# ALCANCE DE LA FORMALIZACIÓN
+
+No intentes formalizar todo el paper.
+
+Busca una formalización pequeña pero académicamente significativa y conectada con el mecanismo económico central.
+
+Prioriza, según lo que resulte más fiel y tractable en la fuente NBER:
+
+* task allocation / automation threshold;
+* una desigualdad central asociada a displacement;
+* el signo de una comparación relevante;
+* o una parte manejable del resultado que conecta automation con wages/factor allocation.
+
+Prefiere un resultado pequeño, claro y compilable antes que una Proposition enorme y parcialmente falsa.
+
+La formalización debe distinguir siempre entre:
+
+1. lo que dice exactamente el paper;
+2. lo que representa la declaración Lean;
+3. assumptions adicionales necesarias;
+4. lo que Lean realmente demuestra.
+
+Si solo logras formalizar:
+
+* un lemma;
+* un special case;
+* una implication;
+* una desigualdad;
+* o una versión bajo assumptions adicionales,
+
+eso es aceptable, pero debe describirse exactamente así.
+
+Nunca escribas que “Lean verifies Proposition X” si en realidad solo demuestra una parte o versión simplificada.
+
+---
+
+# WORKFLOW DE APPLIEDMODELINGLIB
+
+Sigue el workflow actual de `econcs-formalizer`, pero carga únicamente las instrucciones necesarias para el estado actual del paper.
+
+No vuelvas a leer manuales completos si no hacen falta.
+
+No ejecutes:
+
+`lake build AppliedModelingLib`
+
+ni ningún build global equivalente.
+
+Usa únicamente builds/checks focalizados al paper o a los archivos Lean que estés trabajando.
+
+Si necesitas dependencias o cache precompilada, usa la ruta de cache disponible antes de iniciar compilaciones globales.
+
+Si un comando comienza a tardar inesperadamente, identifica qué está haciendo y si es realmente necesario. No dejes un build global corriendo por inercia.
+
+Al cerrar el trabajo Lean, ejecuta el check focalizado requerido:
+
+`python3 scripts/paper_contribution.py check AR18RaceManMachine --fast`
+
+Si el workflow actual exige algún comando previo específico para ese paper, ejecútalo, pero no conviertas esto en un audit global innecesario.
+
+Preserva errores reales y resultados parciales.
+
+No maquilles un resultado incompleto como verificación total.
+
+---
+
+# COPIA COMPLETA A LEAN/
+
+Después de terminar la corrida propia, copia COMPLETO:
+
+`papers/AR18RaceManMachine/`
+
+al repositorio semanal como:
+
+`lean/`
+
+No selecciones solo los archivos que “se ven bien”.
+
+La copia debe conservar todo el contenido público generado y necesario del paper, incluyendo cuando existan:
+
+* archivos `.lean`;
+* `README`;
+* status;
+* source map;
+* audit artifacts;
+* validation artifacts;
+* documentación;
+* subfolders;
+* resultados parciales o fallidos que formen parte legítima de la corrida.
+
+No copies:
+
+* PDFs privados;
+* caches;
+* credenciales;
+* archivos ignorados;
+* información personal innecesaria.
+
+No edites manualmente el resultado de Lean para hacerlo parecer más exitoso de lo que fue.
+
+---
+
+# README
+
+Actualiza `README.md` de manera concisa.
+
+Debe quedar aproximadamente como una página útil y cubrir:
+
+* research question;
+* modelo;
+* displacement;
+* productivity;
+* reinstatement;
+* wages y labor share;
+* condiciones principales;
+* AI audit;
+* derivación manuscrita;
+* qué formalizó Lean;
+* qué NO formalizó Lean;
+* resultado real del build/check.
+
+No lo conviertas en documentación extensa.
+
+---
+
+# PROMPTS.MD
+
+Continúa preservando el trabajo REAL.
+
+Añade:
+
+* este prompt completo;
+* la interacción relevante usada para la corrida de Lean;
+* prompts reales enviados durante la formalización;
+* respuestas sustantivas;
+* errores;
+* reparaciones;
+* cambios de estrategia;
+* resultado final del check.
+
+No inventes una conversación.
+
+No reemplaces todo por un resumen retrospectivo.
+
+No incluyas miles de líneas de logs mecánicos.
+
+---
+
+# PRESENTACIÓN
+
+Construye:
+
+* `presentation.tex`
+* `presentation.pdf`
+
+La presentación debe estar en inglés y preparada para aproximadamente **20 minutos**.
+
+Debe explicar principalmente la ECONOMÍA del paper, no el proceso de creación del repositorio.
+
+Una estructura razonable es:
+
+1. Research question and motivation
+2. Continuum of tasks
+3. Production and task technologies
+4. Automation frontier `I` versus effective frontier `I*`
+5. Displacement effect
+6. Productivity effect
+7. Wage ambiguity and the `\widetilde K` threshold
+8. Labor share and employment
+9. New tasks and reinstatement
+10. Capital adjustment / long-run result
+11. Endogenous technology only to the extent needed
+12. “Where I did not believe the AI”
+13. Hand derivation
+14. Lean formalization
+15. Conclusion
+
+No es obligatorio usar exactamente 15 slides; prioriza una narración clara para 20 minutos.
+
+## SLIDE DE AI AUDIT
+
+Debe mostrar brevemente la discrepancia real ya documentada:
+
+* AI initially wrote equation (5) incorrectly;
+* why that raised doubt;
+* what the AER actually says;
+* why the correction matters.
+
+No inventes otra discrepancia.
+
+## SLIDE DE DERIVACIÓN
+
+Usa exclusivamente la versión revisada y corregida de:
+
+`hand/derivation-guide.md`
+
+No copies automáticamente las fórmulas desde logs anteriores.
+
+Tómalas directamente del archivo después de haber comprobado su sintaxis y consistencia.
+
+Como la evidencia manuscrita final todavía no existe, deja un placeholder claramente identificado para insertar posteriormente la foto/PDF real.
+
+No generes handwriting artificial.
+
+## SLIDE DE LEAN
+
+Debe ser especialmente clara.
+
+Incluye:
+
+* claim/equation original relevante;
+* Lean statement realmente formalizado;
+* fragmento corto de la proof;
+* traducción de variables;
+* assumptions;
+* conclusion;
+* qué verificó Lean;
+* qué NO verificó Lean;
+* resultado del build/check.
+
+No uses una captura ilegible del paper.
+
+No exageres la cobertura.
+
+---
+
+# COMPILACIÓN
+
+Compila `presentation.tex` para producir `presentation.pdf`.
+
+Haz únicamente el control necesario para confirmar que:
+
+* compila;
+* no faltan assets;
+* no hay errores evidentes de LaTeX.
+
+No hagas todavía una campaña larga de QA visual o rediseño.
+
+La revisión visual final se hará cuando se integre la derivación manuscrita real.
+
+---
+
+# GIT
+
+Trabaja solamente en `analysis`.
+
+Al finalizar:
+
+* haz un único commit natural para este bloque de trabajo;
+* push a `origin/analysis`.
+
+No abras todavía Pull Request.
+
+No hagas merge.
+
+No publiques el link en el Issue.
+
+La derivación manuscrita real todavía debe incorporarse antes del cierre.
+
+---
+
+# EVITA ESPECIALMENTE
+
+No:
+
+* repitas el análisis económico;
+* vuelvas a descargar AER/NBER;
+* ejecutes preflights ya superados sin necesidad;
+* ejecutes un build global;
+* formalices todo el paper;
+* pases una hora intentando cerrar un theorem enorme;
+* ocultes errores de Lean;
+* declares una Proposition completamente verificada si no lo está;
+* hagas PR o merge;
+* publiques el repositorio en el Issue.
+
+Si una formalización amplia empieza a volverse costosa, reduce de inmediato el scope a un resultado fiel y útil que pueda cerrarse y describirse honestamente.
+
+---
+
+# RESPUESTA AL TERMINAR
+
+Dame únicamente:
+
+## Revisión de la derivación
+
+* confirma que abriste el archivo real `hand/derivation-guide.md`;
+* indica si los posibles errores de `\left`, `\gtrless`, braces u otros comandos existían realmente;
+* lista brevemente cualquier corrección realizada;
+* confirma que la derivación final es algebraicamente consistente;
+* no vuelvas a explicar toda la economía.
+
+## Lean
+
+* resultado elegido;
+* fuente NBER exacta;
+* qué statement se formalizó;
+* assumptions;
+* qué demuestra;
+* qué no demuestra;
+* build/check real;
+* path de `AR18RaceManMachine`;
+* confirmación de copia completa a `lean/`.
+
+## Presentación
+
+* número de slides;
+* estructura final;
+* confirmación de `presentation.tex`;
+* confirmación de `presentation.pdf`;
+* placeholder de derivación manual.
+
+## Archivos actualizados
+
+Lista solo los entregables sustantivos creados/modificados.
+
+## Git
+
+* commit;
+* push;
+* estado de `analysis`.
+
+## Acción manual pendiente
+
+Indica exactamente qué debo copiar a mano desde `hand/derivation-guide.md` y qué archivo/foto debo proporcionar después para sustituir el placeholder.
+
+## Bloqueos
+
+Si no existe ninguno escribe:
+
+`Ninguno — solo falta incorporar la derivación manuscrita real y cerrar el repositorio.`
+
+Detente ahí.
+
+No abras PR, no hagas merge y no publiques el repositorio todavía.
+
+## User — continuation after execution interruption
+
+Continúa exactamente desde donde se interrumpió la ejecución anterior por falta de créditos. Antes de ejecutar nada, revisa brevemente el estado actual para no repetir trabajo ya completado. Mantén todas las instrucciones del último prompt y continúa con lo pendiente.
+
+## Prompt sent to the own Lean run
+
+```text
+Please formalize https://www.nber.org/papers/w22252 (NBER Working
+Paper 22252, revised June 2017) using the paper-formalization skill
+and workflow in this repository.
+Use AR18RaceManMachine as the paper folder.
+
+This is a course-scoped original run. Do not copy another person's formalization.
+Use the already-downloaded canonical source at:
+  /mnt/c/Users/WILLIAM/Documents/GitHub/ai-06-restrepo/paper/acemoglu-restrepo-w22252-revised-june-2017.pdf
+Do not search for or download the paper again.
+
+The user explicitly selects a narrow formalization rather than the complete paper:
+formalize one small, faithful, economically meaningful result connected to the
+task-allocation/automation threshold, displacement inequality, or a manageable
+automation/wage or factor-allocation implication. A lemma, implication, or
+special case under visible assumptions is acceptable. State precisely what is
+from the NBER source, what the Lean statement represents, any additional
+assumptions, what Lean proves, and what it does not prove. Do not claim to verify
+an entire proposition unless the statement really does so.
+
+Follow the current econcs-formalizer workflow only as needed for this scoped
+paper. Create papers/AR18RaceManMachine/ through paper_contribution.py new.
+Preserve real partial/failure artifacts. Do not run lake build AppliedModelingLib
+or any repository-wide build. Use only targeted Lean checks/builds and the
+available .lake cache. End by running:
+  python3 scripts/paper_contribution.py check AR18RaceManMachine --fast
+
+Do not touch papers/IT25KnowledgeEconomy or unrelated files. Do not commit or
+push.
+
+Execution environment note: your host working directory is C:\\Users\\WILLIAM
+only to avoid a known UNC helper failure. Every repository command and every
+edit must target the isolated WSL worktree by invoking:
+  wsl.exe -e bash -lc 'cd /home/william/AppliedModelingLib-AR18RaceManMachine && ...'
+Do not create repository artifacts under C:\\Users\\WILLIAM. The prior attempt
+created no paper files; start from the existing clean isolated worktree.
+```
+
+## Assistant — substantive Stage 3 record
+
+The own formalization run was launched with model `gpt-5.6-sol` and reasoning `xhigh`; its session header confirmed both settings. It selected a narrow task-allocation implication from NBER Working Paper 22252 (revised June 2017), Section 2.2, p. 8, equation (6) and the following threshold discussion.
+
+The selected Lean proposition assumes a strictly increasing productivity schedule, positive prices and task productivity, the cost-frontier equality `w / r = gamma costThreshold`, and `i < min automationThreshold costThreshold`. It concludes that the task is technologically eligible for capital and that capital is strictly cheaper than effective labor: `i ≤ automationThreshold ∧ r < w / gamma i`.
+
+Real errors and repairs:
+
+- The first Codex session used the WSL worktree through a UNC working directory. Repeated helper setup failures prevented reliable writes, so the session was stopped before it created paper files and restarted from a stable Windows working directory while keeping all repository commands confined to the isolated WSL worktree.
+- The model's first two attempts to patch the temporary statement specification failed because PowerShell interpreted Lean inequality symbols and then broke a heredoc. The selected statement was preserved and the same specification was applied through a controlled patch.
+- `paper_contribution.py new` initially failed because `scripts/new_paper.py` could not import `scripts.formalization_protocol`; setting `PYTHONPATH=.` repaired the scaffold invocation.
+- A direct check of `ProofInterface.lean` failed before the new imported modules had been built. The first focused target build then showed that `Mathlib.Algebra.Order.Field.Basic` did not introduce the real-number notation. Replacing it with the still-focused `Mathlib.Data.Real.Basic` import repaired the issue.
+- The exact-type theorem was proved without `sorry`, `admit`, new axioms, `opaque`, or `native_decide`.
+- `LEAN_NUM_THREADS=1 lake build +AR18RaceManMachine` passed.
+- `PYTHONPATH=. LEAN_NUM_THREADS=1 python3 scripts/paper_contribution.py check AR18RaceManMachine --fast` passed.
+- The result is deliberately described as one implication, not as verification of a complete proposition, equilibrium, wage result, or paper-wide semantic closeout.
+
+The interrupted execution then resumed from the existing files without rerunning
+the economic analysis or Lean. The actual hand-derivation file was used to
+complete a 17-slide English presentation. The slide order was repaired after an
+interrupted patch had placed five economic-result slides immediately after the
+title. The derivation slide retains the validated sign comparison and states the
+capital-threshold implications without turning them into a stronger biconditional.
+The Lean slides separate the NBER claim, the formal statement, visible
+assumptions, proof logic, and the deliberately narrow verification boundary.
+
+The first PDF compilation attempts were blocked by stale/incomplete MiKTeX user
+setup rather than by the LaTeX source. After MiKTeX completed its package check
+and the compile was allowed to access its user configuration, `pdflatex
+-interaction=nonstopmode -halt-on-error presentation.tex` succeeded. The final
+output is `presentation.pdf` with 17 pages; no LaTeX errors or missing assets
+were reported. The deck keeps a clearly labeled placeholder for the real
+handwritten derivation.

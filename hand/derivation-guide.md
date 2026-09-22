@@ -48,7 +48,7 @@ $$
 $d\ln Y\vert_{K,L}=P_I\,dI$:
 
 $$
-d\ln W=left[
+d\ln W=\left[
 P_I-(1-s_L)\frac{\Lambda_I}{\widehat\sigma+\varepsilon_L}
 \right]dI.
 $$
@@ -56,9 +56,9 @@ $$
 **Step 3.** Since $dI>0$, divide by $dI$ without reversing the inequality:
 
 $$
-\frac{d\ln W}{dI}gtrless0
+\frac{d\ln W}{dI}\gtrless 0
 \quad\Longleftrightarrow\quad
-P_Igtrless
+P_I\gtrless
 (1-s_L)\frac{\Lambda_I}{\widehat\sigma+\varepsilon_L}.
 $$
 

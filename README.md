@@ -44,6 +44,30 @@ allocation threshold because the power is monotone, but it matters for task-pric
 levels. The complete audit and economic analysis are in
 [`paper/stage-2-economic-results.md`](paper/stage-2-economic-results.md).
 
+## Hand derivation
+
+[`hand/derivation-guide.md`](hand/derivation-guide.md) isolates Proposition 3's
+productivity and displacement terms. For an automation-only change, the wage
+rises exactly when the productivity term exceeds displacement; the guide then
+records the AER capital threshold and contrasts the conditional wage with the
+unambiguous fall in $W/R$. It is a guide for a real handwritten copy, not
+synthetic handwriting.
+
+## Lean formalization
+
+The original Lean run uses NBER Working Paper 22252, revised June 2017, not the
+published AER pagination. It proves one implication following NBER equation
+(6): if a task lies strictly below the minimum of the technological automation
+frontier and the cost frontier, then it is technologically eligible for capital
+and $R<W/\gamma(i)$. The statement assumes a strictly increasing $\gamma$ and
+explicitly positive prices and productivity.
+
+Lean does **not** verify a complete proposition, equilibrium existence or
+uniqueness, wage effects, factor shares, dynamics, or balanced growth. The
+focused target and the required fast contribution check passed; the complete
+public run, including pending audit scaffolding and a precise scope report, is
+in [`lean/`](lean/AR18RaceManMachine/docs/COURSE_RUN_REPORT.md).
+
 ## Repository contents
 
 - `paper/README.md`: pinned AER and NBER source identities.
@@ -51,4 +75,6 @@ levels. The complete audit and economic analysis are in
 - `paper/stage-2-economic-results.md`: economic results and AI audit.
 - `hand/derivation-guide.md`: short wage-effect derivation to copy by hand.
 - `prompts.md`: real conversation record.
-- `presentation.*`, final hand evidence, and `lean/`: reserved for later stages.
+- `lean/`: complete public output of the course-scoped Lean run.
+- `presentation.tex` and `presentation.pdf`: 20-minute presentation.
+- The final handwritten evidence remains to be inserted.
