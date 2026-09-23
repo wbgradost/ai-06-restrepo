@@ -30,9 +30,9 @@ checked separately.
 - Proof-endpoint interface: `AR18RaceManMachine/ProofInterface.lean`
 - Machine-readable status source: `AR18RaceManMachine/status.json`
 - Private outside-Lean proof plan: `AR18RaceManMachine/docs/FORMALIZATION_PLAN.md`
-- Final validation report: `AR18RaceManMachine/FINAL_VALIDATION_REPORT.md`
-- Dependency DAG: `AR18RaceManMachine/docs/DependencyDAG.tex`
-- Rendered DAG: `AR18RaceManMachine/docs/DependencyDAG.pdf`
+- Course-scoped run report: `AR18RaceManMachine/docs/COURSE_RUN_REPORT.md`
+- Final validation report: not generated; paper-wide closeout remains pending.
+- Dependency DAG and rendered DAG: not generated.
 - LLM/source audit sidecars: `AR18RaceManMachine/audit/*.json`
 
 `PaperInterface.lean` should be readable on its own: expose actual source
@@ -110,18 +110,18 @@ not block Lean closeout.
 
 | Paper item | Lean declaration | Status | File | Remaining assumptions / notes |
 |---|---|---|---|---|
-| Task-allocation implication at the cost threshold following equation (6) (Section 2.2, page 8, equation (6) and the two paragraphs following it) | `capital_cheaper_below_equilibrium_thresholdSpec` -> `capital_cheaper_below_equilibrium_threshold` | statement specification + proof stub | `PaperInterface.lean` | The transparent `...Spec : Prop` is the statement-audit target; the proof body is `by sorry`; raw-source-to-expanded-Spec judgment and premise provenance pending |
+| Task-allocation implication at the cost threshold following equation (6) (Section 2.2, page 8, equation (6) and the two paragraphs following it) | `capital_cheaper_below_equilibrium_thresholdSpec` -> `capital_cheaper_below_equilibrium_threshold` | proof complete; semantic audit pending | `PaperInterface.lean`, `ProofInterface.lean` | The exact-type proof is closed without `sorry`; raw-source-to-expanded-Spec judgment, premise provenance, and paper-wide closeout remain pending. |
 
 ## Intake Checklist
 
-- [ ] Pin the exact source bytes and version.
+- [x] Pin the exact source bytes and version.
 - [ ] Complete the source-only selected-presentation and material-atom inventory.
 - [ ] Complete the outside-Lean formula/dependency sanity pass and working memo.
 - [ ] Search Mathlib, Cslib, Optlib, AppliedModelingLib, and relevant upstream
       Lean sources before introducing paper-local abstractions.
 - [ ] Create actual source definitions/models and one transparent Spec per
       selected claim in `PaperInterface.lean`.
-- [ ] Create each distinct proof endpoint in `ProofInterface.lean`.
+- [x] Create the selected proof endpoint in `ProofInterface.lean`.
 - [ ] Run the architecture pre-pass and repair role confusion before freezing
       the source map and beginning expensive proof work.
 - [ ] Keep final validation reports and Dependency DAGs absent until the

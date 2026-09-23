@@ -7,14 +7,14 @@
   "source_inventory_review_required": true,
   "repository_visibility": "private_only",
   "build_target": "lake build +AR18RaceManMachine",
-  "status": "not started",
-  "main_caveat": "Replace with the public caveat or state that no caveat is known.",
-  "human_summary": "Replace with a concise public-facing note; leave empty for formalized papers unless a source-version or proof-route note matters.",
+  "status": "partially formalized",
+  "main_caveat": "Lean proves only one course-scoped task-allocation implication following NBER equation (6). It does not verify the complete equilibrium, comparative statics, factor shares, dynamics, balanced growth, welfare, or any complete numbered proposition. Independent source-to-Spec audit and paper-wide semantic closeout remain pending.",
+  "human_summary": "One task-allocation implication has a closed Lean proof and passed the focused paper build and fast contribution check. The result is deliberately narrower than the paper's economic propositions, and the generated audit scaffold remains pending.",
   "human_summary_review": {
     "status": "draft",
     "note": "Set to human_approved only after a human has written or explicitly approved this summary; do not rewrite a human_approved summary without explicit human instruction."
   },
-  "review_entrypoint": "papers/AR18RaceManMachine/FINAL_VALIDATION_REPORT.md",
+  "review_entrypoint": "papers/AR18RaceManMachine/docs/COURSE_RUN_REPORT.md",
   "human_review": {
     "reviewed_rows": 0,
     "total_rows": 0,
@@ -24,7 +24,7 @@
   },
   "paper_interface": {
     "path": "papers/AR18RaceManMachine/PaperInterface.lean",
-    "line_count": 0,
+    "line_count": 92,
     "declaration_rows": 1,
     "review_rows": 1,
     "oversized": false,
