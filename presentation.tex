@@ -276,35 +276,13 @@ transcription error, not a manufactured disagreement.
 \end{frame}
 
 \begin{frame}{Hand derivation: wage sign under automation}
-\small
-Start from Proposition 3, set $dN=0$, and write
-$d\ln Y|_{K,L}=P_I\,dI$:
-\[
-d\ln W=\left[
-P_I-(1-s_L)\frac{\Lambda_I}{\sigHat+\varepsilon_L}
-\right]dI.
-\]
-Because $dI>0$,
-\[
-\frac{d\ln W}{dI}\gtrless0
-\quad\Longleftrightarrow\quad
-P_I\gtrless(1-s_L)\frac{\Lambda_I}{\sigHat+\varepsilon_L}.
-\]
-Proposition 3 translates this comparison into
-\[
-K>\Ktilde\Rightarrow\frac{d\ln W}{dI}>0,
-\qquad
-K<\Ktilde\Rightarrow\frac{d\ln W}{dI}<0.
-\]
-Yet Proposition 2 implies
-\[
-\frac{d\ln(W/R)}{dI}
-=-\frac{\Lambda_I}{\sigHat+\varepsilon_L}<0.
-\]
-\begin{alertblock}{Manual evidence placeholder}
-Insert the real handwritten copy of \texttt{hand/derivation-guide.md} here after
-it is supplied. No synthetic handwriting has been generated.
-\end{alertblock}
+\begin{center}
+  \includegraphics[height=0.82\textheight,keepaspectratio]{hand/derivation.jpeg}
+
+  \vspace{0.2em}
+  \scriptsize Real handwritten derivation: Proposition 3 wage threshold and
+  Proposition 2 relative-factor-price result.
+\end{center}
 \end{frame}
 
 \begin{frame}{Lean formalization: the narrow claim}
@@ -336,7 +314,7 @@ $w,r,\gamma$ & wage, rental rate, labor productivity\\
 \end{center}
 \end{frame}
 
-\begin{frame}[fragile]{Lean proof, assumptions, and boundary}
+\begin{frame}[fragile]{Lean proof and scope}
 \scriptsize
 \begin{columns}[T]
 \column{0.53\textwidth}

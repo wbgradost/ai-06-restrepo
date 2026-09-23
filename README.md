@@ -46,12 +46,10 @@ levels. The complete audit and economic analysis are in
 
 ## Hand derivation
 
-[`hand/derivation-guide.md`](hand/derivation-guide.md) isolates Proposition 3's
-productivity and displacement terms. For an automation-only change, the wage
-rises exactly when the productivity term exceeds displacement; the guide then
-records the AER capital threshold and contrasts the conditional wage with the
-unambiguous fall in $W/R$. It is a guide for a real handwritten copy, not
-synthetic handwriting.
+[`hand/derivation.jpeg`](hand/derivation.jpeg) is the real handwritten derivation
+of Proposition 3's productivity--displacement comparison and capital threshold,
+followed by Proposition 2's unambiguous decline in $W/R$. It is embedded in the
+presentation without synthetic handwriting.
 
 ## Lean formalization
 
@@ -73,8 +71,8 @@ in [`lean/`](lean/AR18RaceManMachine/docs/COURSE_RUN_REPORT.md).
 - `paper/README.md`: pinned AER and NBER source identities.
 - `paper/stage-1-model-map.md`: equation and source map.
 - `paper/stage-2-economic-results.md`: economic results and AI audit.
-- `hand/derivation-guide.md`: short wage-effect derivation to copy by hand.
+- `hand/derivation.jpeg`: real handwritten wage-effect derivation.
 - `prompts.md`: real conversation record.
 - `lean/`: complete public output of the course-scoped Lean run.
 - `presentation.tex` and `presentation.pdf`: 20-minute presentation.
-- The final handwritten evidence remains to be inserted.
+- The final handwritten evidence is embedded in the presentation.

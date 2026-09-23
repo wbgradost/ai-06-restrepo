@@ -1246,3 +1246,32 @@ and the compile was allowed to access its user configuration, `pdflatex
 output is `presentation.pdf` with 17 pages; no LaTeX errors or missing assets
 were reported. The deck keeps a clearly labeled placeholder for the real
 handwritten derivation.
+
+## User — final handwritten evidence and repository closeout
+
+Continúa desde el estado actual de `C:\Users\WILLIAM\Documents\GitHub\ai-06-restrepo`.
+
+Ya está disponible `hand/derivation.jpeg`. Incorpóralo en la diapositiva correspondiente de `presentation.tex`, reemplazando el placeholder actual y ajustando únicamente su tamaño o disposición para que la derivación sea claramente legible.
+
+Después termina el repositorio con una sola ronda final de QA. Compila `presentation.tex` y revisa visualmente el PDF completo, especialmente la diapositiva con la derivación. Ejecuta el check focalizado `python3 scripts/paper_contribution.py check AR18RaceManMachine --fast`, `git diff --check`, verifica que no haya archivos privados o temporales y confirma que estén presentes todos los entregables finales.
+
+Si todo está correcto, haz commit y push en `analysis`, abre el PR `analysis → main`, haz merge, actualiza el `main` local y deja el repositorio limpio y sincronizado.
+
+No publiques todavía el enlace del repositorio en el Issue #5.
+
+Al terminar, dame un resumen breve de lo realizado, los checks, el commit final, el PR/merge y el estado de `main`.
+
+## Assistant — final closeout record
+
+The real `hand/derivation.jpeg` replaced the presentation placeholder. The final
+PDF contains 17 pages. A complete visual review confirmed that the handwritten
+derivation on slide 14 is legible and uncropped. That review also found one real
+layout defect: the original long title on slide 16 was clipped at the left edge.
+Shortening it to “Lean proof and scope” fixed the problem, and the affected slide
+was rendered again to confirm the repair.
+
+The focused command `PYTHONPATH=. LEAN_NUM_THREADS=1 python3
+scripts/paper_contribution.py check AR18RaceManMachine --fast` completed
+successfully in the isolated AppliedModelingLib worktree. Final repository checks
+then covered whitespace, required deliverables, and exclusion of generated or
+private artifacts before the Git closeout.
